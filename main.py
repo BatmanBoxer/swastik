@@ -21,7 +21,7 @@ def on_key_event(event):
             pyautogui.typewrite(f"RN-{billnb}")
             pyautogui.press("enter")
             billnb += 1
-
+mero name darwin ho
 print("Press ',' to press Enter four times.")
 print("Press '.' to press Enter, type agent name, and press Enter.")
 print("Press '/' to press Enter, type RN-billnb, press Enter, and increment billnb.")
