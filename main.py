@@ -1,31 +1,23 @@
-import keyboard
+from pynput import keyboard
 import pyautogui
 
-billnb = int(input("bill nb start: "))
-agent = input("Enter agent name: ")
+billNumber = int(input("Bill Number (RN)- "))
+def on_press(key):
+    global billNumber
+    try:
+        print(key)
+        if key == keyboard.Key.home:
+            print("darwin")
+            pyautogui.typewrite(f"RN-{billNumber}")
+            billNumber = billNumber + 1
+    except AttributeError:
+            print(f'Special key {key} pressed')
 
-def on_key_event(event):
-    global billnb  # This allows the function to modify the global variable
-    if event.event_type == 'down':
-        if event.name == ',' and event.modifiers == {'ctrl'}:
-            pyautogui.press('enter')
-            pyautogui.press('enter')
-            pyautogui.press('enter')
-            pyautogui.press('enter')
-        elif event.name == '.' and event.modifiers == {'ctrl'}:
-            pyautogui.press("enter")
-            pyautogui.typewrite(agent)
-            pyautogui.press("enter")
-        elif event.name == '/' and event.modifiers == {'ctrl'}:
-            pyautogui.press("enter")
-            pyautogui.typewrite(f"RN-{billnb}")
-            pyautogui.press("enter")
-            billnb += 1
-mero name darwin ho
-print("Press ',' to press Enter four times.")
-print("Press '.' to press Enter, type agent name, and press Enter.")
-print("Press '/' to press Enter, type RN-billnb, press Enter, and increment billnb.")
-keyboard.hook(on_key_event)
 
-# Keep the program running indefinitely
-keyboard.wait("[")
+def on_release(key):
+    print("-------------------------------------------")
+    if key == keyboard.Key.esc:
+        return False
+
+with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+    listener.join()
