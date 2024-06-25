@@ -8,7 +8,7 @@ def on_press(key):
         print(key)
         if key == keyboard.Key.home:
             print("darwin")
-            pyautogui.typewrite(f"RN-{billNumber}")
+            keyboard.write(f"RN-{billNumber}")
             billNumber = billNumber + 1
     except AttributeError:
             print(f'Special key {key} pressed')
